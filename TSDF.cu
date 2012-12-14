@@ -9,7 +9,8 @@
 #define DMAP(a) (a[0]+map_center_x)*map_size_y+(a[1]+map_center_y)
 // For the CUDA runtime routines (prefixed with "cuda_")
 
-
+#define DOT(a,b) a[0]*b[0]+a[1]*b[1]+a[2]*b[2]
+#define DOTV(a,b) a.x*b.x+a.y*b.y+a.z*b.z
 
 //---------------------------------------------------------------------------
 // Some paramenters------------->Define them
@@ -23,9 +24,9 @@
    //unit length
    #define unit 0.1f
    // Size of cube
-   #define size_x 600
-   #define size_y 400
-   #define size_z 100
+   #define size_x 10
+   #define size_y 10
+   #define size_z 10
    // The index of original point
    #define center_x 5
    #define center_y 5
@@ -61,13 +62,15 @@ __global__ void
 TSDF(float *cube, float *cube_w, float *cube_k, float *cube_wk, float *Rgk, float *tgk, float *Rk, vertex *NRk)
 {
 
-    /*int i = blockDim.x * blockIdx.x + threadIdx.x;
-    
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+    float a[3]={1,2,3};
+    vertex b={.x=1,.y=2,.z=3};
     if (i < numElements )
     {
         cube[i] = cube[i] + cube[i];
-        cube[i] = sqrt(2.0f);
-    }*/
+        cube[i] = DOTV(b,b);
+        
+    }/*
     
             int i = 0;
             int j = 0;
@@ -125,7 +128,8 @@ TSDF(float *cube, float *cube_w, float *cube_k, float *cube_wk, float *Rgk, floa
                cube[ POS3(i,j,k) ] = cube_w[ POS3(i,j,k) ] * cube[ POS3(i,j,k) ] + cube_wk[ POS3(i,j,k) ] * cube_k[ POS3(i,j,k) ];
                cube_w[ POS3(i,j,k) ] = min( cube_w[ POS3(i,j,k) ]+cube_wk[ POS3(i,j,k)], W_eta);
                cube[ POS3(i,j,k) ] /= cube_w[ POS3(i,j,k) ]+cube_wk[ POS3(i,j,k)];
-            }          
+            }
+        */          
 }
 
 
