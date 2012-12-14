@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <cuda_runtime.h>
 
@@ -165,7 +164,7 @@ main(void)
    float *cube_w=(float *)malloc(size);
 
    //F_Rk
-   float *cube_k=(float *)malloc(size);
+   float *cube_k=(float *)malloc(size);//???????????????????????????? No use
 
    //W_Rk
    float *cube_wk=(float *)malloc(size);
